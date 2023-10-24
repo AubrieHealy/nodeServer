@@ -164,9 +164,9 @@ function broadcastByData(messageData)
         }
     });
 
-    const roomClient = roomClients.get(ws.room);
+    const roomClient = roomClients.get(messageData.roomCode);
     if (roomClient.client.readyState === WebSocket.OPEN) {
-        data.client.send(JSON.stringify(messageData));
+        roomClient.client.send(JSON.stringify(messageData));
     }
 }
 
