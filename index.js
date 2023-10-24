@@ -157,19 +157,17 @@ function broadcast(message) {
 
 function broadcastByData(messageData)
 {
-    rooms[messageData.roomCode].forEach(client)
-    {
-        if (client.readyState === WebSocket.OPEN) {
+    rooms[messageData.roomCode].forEach(client) => {
+      if (client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify(messageData));
         }
     });
 
-    roomClients[messageData.roomCode].forEach(client2)
-    {
-    if (client2.readyState === WebSocket.OPEN) {
-            client2.send(JSON.stringify(messageData));
+    roomClients[messageData.roomCode].forEach(client) => {
+      if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(messageData));
         }
-    }
+    });
 }
 
 function findPlayerInRoom(room, nickname) {
