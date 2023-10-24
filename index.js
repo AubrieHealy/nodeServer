@@ -92,7 +92,7 @@ wss.on('connection', (ws) => {
                         vip: players.length == 1
                     } 
 
-                    const target = roomClients.get(ws.room);
+                   const target = roomClients.get(ws.room);
                     target.send(JSON.stringify(response));
                 }
             }
