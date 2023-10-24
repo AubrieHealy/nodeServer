@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         messageType: 'SEND_GAME_DATA',
                         roomCode,
                         nickname,
-                        dataType: "SKIP_INSTRUCTIONS"
+                        dataType: "READY_FOR_CHALLENGE"
                     };
                     socket.send(JSON.stringify(messageToGame));
                     this.removeEventListener('click', handler);
