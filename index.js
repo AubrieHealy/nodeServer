@@ -160,13 +160,13 @@ function broadcastByData(messageData)
     const players = rooms.get(messageData.roomCode);
     players.forEach((data) => {
       if (data.client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(messageData));
+           data.client.send(JSON.stringify(messageData));
         }
     });
 
     const roomClient = roomClients.get(ws.room);
     if (roomClient.client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(messageData));
+        data.client.send(JSON.stringify(messageData));
     }
 }
 
