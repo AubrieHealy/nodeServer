@@ -157,17 +157,17 @@ function broadcast(message) {
 
 function broadcastByData(messageData)
 {
-    rooms[messageData.roomCode].forEach(client) => {
-      if (client.readyState === WebSocket.OPEN) {
+    const players = rooms[messageData.roomCode];
+    players.forEach(data) => {
+      if (data.client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify(messageData));
         }
     });
 
-    roomClients[messageData.roomCode].forEach(client) => {
-      if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(messageData));
-        }
-    });
+    const roomClient = roomClients.get(ws.room);
+    if (roomClient.client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(messageData));
+    }
 }
 
 function findPlayerInRoom(room, nickname) {
