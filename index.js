@@ -163,7 +163,7 @@ function broadcastByData(messageData)
     });
 
     const roomClient = roomClients.get(messageData.roomCode);
-    roomClient.client.send(JSON.stringify(messageData));
+    roomClient.send(JSON.stringify(messageData));
 }
 
 function findPlayerInRoom(room, nickname) {
