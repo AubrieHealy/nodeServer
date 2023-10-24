@@ -159,15 +159,11 @@ function broadcastByData(messageData)
 {
     const players = rooms.get(messageData.roomCode);
     players.forEach((data) => {
-      if (data.client.readyState === WebSocket.OPEN) {
-           data.client.send(JSON.stringify(messageData));
-        }
+        data.client.send(JSON.stringify(messageData));
     });
 
     const roomClient = roomClients.get(messageData.roomCode);
-    if (roomClient.client.readyState === WebSocket.OPEN) {
-        roomClient.client.send(JSON.stringify(messageData));
-    }
+    roomClient.client.send(JSON.stringify(messageData));
 }
 
 function findPlayerInRoom(room, nickname) {
