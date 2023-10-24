@@ -159,8 +159,8 @@ function broadcastByData(messageData)
 {
     wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
-            console.log(`roomcode ${ws.room}`)
-            if (ws.room === messageData.roomCode) {
+            console.log(`roomcode ${client.ws.room}`)
+            if (client.ws.room === messageData.roomCode) {
                 client.send(JSON.stringify(message));
             }
         }
