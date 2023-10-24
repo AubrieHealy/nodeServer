@@ -93,7 +93,15 @@ wss.on('connection', (ws) => {
                     } 
 
                    const target = roomClients.get(ws.room);
-                    target.send(JSON.stringify(response));
+
+                   target.send(JSON.stringify(response));
+
+                   const player = findPlayerInRoom(ws.room, ws.nick);
+                   if (player != undefined) {
+                        player.send(JSON.stringify(response));
+                   }
+
+
                 }
             }
         }
@@ -154,7 +162,6 @@ function broadcast(message) {
             client.send(message);
         }
     });
-
 }
 
 function findPlayerInRoom(room, nickname) {
