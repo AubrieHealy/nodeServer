@@ -91,7 +91,9 @@ wss.on('connection', (ws) => {
                         nickname: ws.nick,
                         vip: players.length == 1
                     } 
-                    ws.send(JSON.stringify(response));
+
+                    const target = roomClients.get(ws.room);
+                    target.send(JSON.stringify(response));
                 }
             }
         }
