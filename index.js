@@ -92,9 +92,7 @@ wss.on('connection', (ws) => {
                         vip: players.length == 1
                     } 
 
-                   broadcast(JSON.stringify(response));
-
-
+                   broadcastByData(response);
                 }
             }
         }
@@ -151,9 +149,22 @@ const interval = setInterval(function ping() {
 
 function broadcast(message) {
     wss.clients.forEach((client) => {
-        console.log(`Broadcasting Messages to: ${client}`);
         if (client.readyState === WebSocket.OPEN) {
             client.send(message);
+        }
+    });
+}
+
+function broadcastByData(messageData)
+{
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            function each(ws)
+            {
+                 if (ws.room === messageData.roomCode) {
+                    client.send(JSON.stringify(message));
+                 }
+            }
         }
     });
 }
