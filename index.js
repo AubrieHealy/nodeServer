@@ -92,14 +92,7 @@ wss.on('connection', (ws) => {
                         vip: players.length == 1
                     } 
 
-                   const target = roomClients.get(ws.room);
-
-                   target.send(JSON.stringify(response));
-
-                   const player = findPlayerInRoom(ws.room, ws.nick);
-                   if (player != undefined) {
-                        player.send(JSON.stringify(response));
-                   }
+                   broadcast(JSON.stringify(response));
 
 
                 }
@@ -158,6 +151,7 @@ const interval = setInterval(function ping() {
 
 function broadcast(message) {
     wss.clients.forEach((client) => {
+        console.log(`Broadcasting Messages to: ${client}`);
         if (client.readyState === WebSocket.OPEN) {
             client.send(message);
         }
