@@ -157,14 +157,19 @@ function broadcast(message) {
 
 function broadcastByData(messageData)
 {
-    wss.clients.forEach((client) => {
+    rooms[messageData.roomCode].forEach(client)
+    {
         if (client.readyState === WebSocket.OPEN) {
-            console.log(`roomcode ${client.ws.room}`)
-            if (client.ws.room === messageData.roomCode) {
-                client.send(JSON.stringify(message));
-            }
+            client.send(JSON.stringify(messageData));
         }
     });
+
+    roomClients[messageData.roomCode].forEach(client2)
+    {
+    if (client2.readyState === WebSocket.OPEN) {
+            client2.send(JSON.stringify(messageData));
+        }
+    }
 }
 
 function findPlayerInRoom(room, nickname) {
