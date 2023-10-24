@@ -90,8 +90,8 @@ wss.on('connection', (ws) => {
                         roomCode: ws.room,
                         nickname: ws.nick,
                         vip: players.length == 1
-                    }
-                    broadcast(JSON.stringify(response));
+                    } 
+                    ws.send(JSON.stringify(response));
                 }
             }
         }
