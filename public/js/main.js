@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 });
             break;
             case 'GAME_TO_PLAYER':
-                if (message.dataType == "DEBATE_TOPICS") {
-                    showDebateInputs(message);
+                if (message.dataType == "SHOW_CHALLENGE") {
+                    ShowChallengeToPlayer(message);
                 }
             break;
             case 'SEND_BROADCAST':
@@ -177,18 +177,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
     }
 
-    function showDebateInputs(message) {
+    function ShowChallengeToPlayer(message) {
         roundId = message.roundId;
 
         document.querySelector('#waiting-for-instructions').classList.add('hidden');
         document.querySelector('#make-arguments').classList.remove('hidden');
         document.querySelector('#argument-for-topic').innerHTML = message.yours;
-        document.querySelector('#argument-against-topic').innerHTML = message.theirs;
 
         var forSubmitButton = document.querySelector('#submit-argument-for-button');
         var forInputField = document.querySelector('#argument-for-input');
-        var againstSubmitButton = document.querySelector('#submit-argument-against-button');
-        var againstInputField = document.querySelector('#argument-against-input');
+
 
         forInputField.addEventListener('input', function() {
             if (forInputField.value.length == 0) {
@@ -207,20 +205,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         forSubmitButton.addEventListener('click', function() {
             document.querySelector('#argument-for').classList.add('hidden');
-            document.querySelector('#argument-against').classList.remove('hidden');
         });
 
         againstSubmitButton.addEventListener('click', function() {
             document.querySelector('#make-arguments').classList.add("hidden");
-            document.querySelector('#waiting-for-other-players').classList.remove("hidden");
             var messageToGame = {
                 messageType: 'SEND_GAME_DATA',
                 roomCode,
                 nickname,
-                dataType: "DEBATE_ARGUMENTS",
+                dataType: "CHALLENGE_COMPLETE",
                 roundId,
-                argumentFor: forInputField.value,
-                argumentAgainst: againstInputField.value
             };
             socket.send(JSON.stringify(messageToGame));
         });
