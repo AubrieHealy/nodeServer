@@ -69,8 +69,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 });
             break;
             case 'GAME_TO_PLAYER':
-                console.log(`dataType ${message.dataType}`);
-                document.querySelector('#pre-game').classList.add('hidden');
                 if (message.dataType == "SHOW_CHALLENGE") {
                     ShowChallengeToPlayer(message);
                 }
